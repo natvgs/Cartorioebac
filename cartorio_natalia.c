@@ -1,173 +1,188 @@
-#include <stdio.h> //biblioteca de comunicação com o usuário
-#include <stdlib.h> //biblioteca de alocação de espaço em memória
-#include <locale.h> //biblioteca de alocações de texto por região
-#include <string.h> //biblioteca responsálvel por cuidar das string
+#include <stdio.h> //Biblioteca de comunicação com o usuário
+#include <stdlib.h> //Biblioteca de alocação de espaço em memória
+#include <locale.h> //Biblioteca de alocações de texto por região
+#include <string.h> //Biblioteca responsável por cuidar das strings
+#include <windows.h>//Biblioteca de API's do windows
 
-int registro() //Função responsalvel por cadastrar os usuários no sistema 
+int registro() //Função responsável por cadastrar os usuários no sistema
 {
-	//Inicio criação de variáveis/string
-     char arquivo[40];
-	 char cpf[40];
-	 char nome[40];
-	 char sobrenome[40];
-	 char cargo[40];
-	 	//final da criação de variáveis/string
-	 
-	 printf("Digite o CPF a ser cadastrado: ");//Coletando informação do usuário
-	 scanf("%s", cpf);// %s refere-se a string
-	 
-	 strcpy(arquivo, cpf); //Responsavel por copiar os valores das string
-	 
-	 FILE *file; // cria o arquivo
-	 file = fopen(arquivo, "w"); // cria o aquivo e o "w" significa escrever
-	 fprintf(file,cpf); // salvo o valor da variavel
-	 fclose(file); //fecha o aquivo
-	 
-	 file = fopen(arquivo, "a");// cria o aquivo
-	 fprintf(file, ", nome: ");// salvo o valor da variavel
-	 fclose(file);//fecha o aquivo
-	 
-	 printf("Digite o nome a ser cadastrado: ");//Coletando informação do usuário
-	 scanf("%s",nome);
-	 
-	 file = fopen(arquivo, "a");// cria o aquivo
-	 fprintf(file,nome); // salvo o valor da variavel
-	 fclose(file);//fecha o aquivo
-	 
-	 file = fopen(arquivo, "a");// cria o aquivo
-	 fprintf(file, ", sobrenome: "); // salvo o valor da variavel
-	 fclose(file);//fecha o aquivo     
-	 
-	 printf("Digite o sobrenome a ser cadastrado: ");//Coletando informação do usuário
-	 scanf("%s",sobrenome);
-	 
-	 file = fopen(arquivo, "a");// cria o aquivo
-	 fprintf(file,sobrenome); // salvo o valor da variavel
-	 fclose(file);
-	 
-	 file = fopen(arquivo, "a");// cria o aquivo
-	 fprintf(file, ", cargo: "); // salvo o valor da variavel
-	 fclose(file); //fecha o aquivo    
-	 
-	 printf("Digite o cargo a ser cadastrado: ");//Coletando informação do usuário
-	 scanf("%s",cargo);
-	 
-	 file = fopen(arquivo, "a");// cria o aquivo
-	 fprintf(file,cargo); // salvo o valor da variavel
-	 fclose(file); //fecha o aquivo
-	 
-	 system("pause");
-	 
-	 
-	 
-
-}
-
-int consulta()
-{
-      setlocale(LC_ALL, "portuguese"); //Definindo o Linguagem
-	
-	//Inicio criação de variáveis/string
-	 char cpf[40];
-     char conteudo[200];
-    //final da criação de variáveis/string
-     
-     printf("Digite o CPF a ser consultado: ");//Coletando informação do usuário
-     scanf("%s", cpf);
-     
-     FILE *file;// cria o arquivo
-     file = fopen(cpf,"r");// cria o aquivo
-     
-     if(file == NULL)
-     {
-     	printf("Não foi possivel abrir o aquivo, não localizado! .\n");
-	 }
-	 
-	 while(fgets(conteudo, 200, file) != NULL)
-	 {
-	 	printf("\nEssas são as informações do usuário: ");
-	 	printf("%s", conteudo);
-	 	printf("\n\n");
-	 	
-	 }
-    system("pause"); 
-
-}
-
-int deletar()
-{
-	//Inicio criação de variáveis/string
+	//Inicio da criação de variáveis/string
+	char arquivo[40];
 	char cpf[40];
-	//final da criação de variáveis/string
+	char nome[40];
+	char sobrenome[40];
+	char cargo[40];
+	//Final da criação de variáveis/string
 	
-	printf("Digite o CPF do usuário a ser deletado: ");//Coletando informação do usuário
-	scanf("%s",cpf);
+	printf("Digite o CPF a ser cadastrado: "); //Coletando informação do usuário
+	scanf("%s", cpf); //%s refere-se a strings
 	
-	remove(cpf);
+	strcpy(arquivo, cpf); //Responsável por copiar os valores das strings
 	
-	FILE *file;// cria o arquivo
-	file = fopen(cpf,"r");// cria o aquivo
+	FILE *file; //cria o arquivo
 	
-	if(file == NULL)
-	{
-		printf("O usuário não se encontra no sistema!. \n");
-		system("pause");
-	}
+	file = fopen(arquivo, "w"); //abre o arquivo e o "w" significa escrever
+	fprintf(file,cpf); //salvo o valor da variável
+	fclose(file); //fecha o arquivo
+	
+	file = fopen(arquivo, "a"); //abre o arquivo e "a" significa atualizar
+	fprintf(file,","); //salva o valor da variável
+	fclose(file); //fecha o arquivo
+	
+	printf("Digite o nome a ser cadastrado: "); //Coletando informações do usuário
+	scanf("%s",nome); // %s refere-se a strings
+	
+	file = fopen(arquivo, "a"); // abre o arquivo e "a" significa atualizar
+	fprintf(file,nome); //salva o valor da variável
+	fclose(file); //fecha o arquivo
+	
+	printf("Digite o sobrenome a ser cadastrado: "); //Coletando informações do usuário
+	scanf("%s",sobrenome); // %s refere-se a strings
+	
+	file = fopen(arquivo, "a"); // abre o arquivo e "a" significa atualizar
+	fprintf(file,sobrenome); // salva o valor da variável
+	fclose(file); // fecha o arquivo
+	
+	file = fopen(arquivo, "a"); // abre o arquivo e "a" significa atualizar
+	fprintf(file, ","); // salva o valor da variável
+	fclose(file); // fecha o arquivo
+	
+	printf("Digite o cargo a ser cadastrado: "); //Coletando informações do usuário
+	scanf("%s",cargo); // %s refere-se a strings
+	
+	file = fopen(arquivo, "a"); // abre o arquivo e "a" significa atualizar
+	fprintf(file,cargo); // salva o valor da variável
+	fclose(file); // fecha o arquivo
+	
+	system("pause"); 
 	
 }
 
-int main()
+int consulta() // Função responsável por consultar os usuários cadastrados no sistema
 {
-	int opcao=0; //Definindo variáveis
-	int laco=1;
+	setlocale(LC_ALL, "Portuguese"); //Definindo a Língua
 	
-	for(laco=1;laco=1;)
+	// Início da criação de variáveis/string
+	char cpf[40];
+	char conteudo[200];
+	// Final da criação de variáveis/string
+	
+	printf("Digite o CPF a ser consultado: "); // Coletando informações do usuário
+	scanf("%s",cpf); // %s refere-se a string
+	
+	FILE *file; // Cria o arquivo
+	
+	file = fopen(cpf,"r"); // Abre o arquivo e "r" significa ler 
+	
+	if(file == NULL) // Início do operador de repetição
 	{
+		printf("Não foi possivel abrir o arquivo, não loccalizado!.\n"); // Exibe ao usuário caso não encontre o arquivo
+	} // Fim do operador de repetição
 	
-	    system("cls");
+	while (fgets(conteudo, 200, file) != NULL) // Início do operador de repetição
+	{
+		printf("\nEssas são as informações do usuário: "); // Exibe as informações ao usuário
+		printf("%s",conteudo); // %s refere-se a string
+		printf("\n\n");
+	} // Fim do operador de repetição
 	
-	    setlocale(LC_ALL, "portuguese"); //Definindo o Linguagem
+	system("pause");
 	
-    	printf("### Cartório da EBAC ###\n\n"); //Inicio do menu
-	    printf("Escolha a opção desejada do menu:\n\n");
-    	printf("\t1 - Registrar nomes\n");
-    	printf("\t2 - Consultar nomes\n");
-    	printf("\t3 - Deletar nomes\n\n");
-    	printf("\t4 - Sair do sistema\n\n");
-    	printf("Opção: "); //Final do menu
-   
-        scanf("%d", &opcao); //armazenamendo a escolha do usuário
-    
-        system("cls");
-        
-        switch(opcao)
-        {
-        	case 1:
-            registro();
-        	break;
-				
-        	case 2:
-            consulta();
-        	break;
-        	
-        	case 3:
-        	deletar();
-     		break;
-     		
-     		case 4:
-     		printf("Obrigado por utilizar o sistema!\n");
-			return 0;
-			break; 	
-     		
-     		default:
-     		printf("Essa opção não está disponivel!\n");
-    		system("pause");
-    		break;
-     
-
-				
-	     }
-    
-       
-   }
 }
+
+int deletar() // Função responsável por deletar o usuário cadastrado no sistema
+{
+	char cpf[40]; // Criação de variável do tipo string
+	
+	printf("Digite o CPF do usuário cadastrado a ser deletado: "); // Coletando informações do usuário
+	scanf("%s",cpf); // %s refere-se a string
+	
+	remove(cpf); // Remove a variável reponsável por armazenar o CPF
+	
+	FILE *file; // Cria o arquivo
+	
+	file = fopen(cpf,"r"); // Abre o arquivo e "r" significa ler
+	
+	if(file == NULL) // Início do operador de repetição
+	{
+		printf("O usuário foi deletado do sistema!.\n"); // Exibe as informações ao usuário
+	} // Fim do operador de repetição
+	
+	system("pause");
+	
+}
+
+int main() //Função principal, responsável por apresentar o menu ao usuário
+{
+	int opcao=0; //Definindo Variável
+	
+	int laco=1; //Definindo Variável
+	
+	char senhadigitada[10] = "a"; // Criação de variável do tipo string
+	
+	int comparacao; //Definindo Variável
+	
+	printf("### Cartório da EBAC ###\n\n"); 
+	printf("Login de Administrador!\n\nDigite a sua senha:");
+	scanf("%s",&senhadigitada); //Armazenando a senha digitada
+	
+	comparacao = strcmp(senhadigitada, "admin"); //Definindo a comparação de strings
+		
+	if(comparacao == 0) // Início do operador de repetição
+	{ 
+		system("cls");
+		
+		for (laco=1;laco=1;) // Início do operador de repetição
+		{
+			setlocale(LC_ALL, "Portuguese"); //Definindo a Língua
+	
+			printf("### Cartório da EBAC ###\n\n"); //Início do Menu
+			printf("Escolha a opção desejada do menu :\n\n");
+			printf("\t1 - Registrar nomes\n");
+			printf("\t2 - Consultar nomes\n");	
+			printf("\t3 - Deletar nomes\n"); 
+			printf("\t4 - Sair do sistema\n\n");
+			printf("Opção:"); // Fim do Menu
+	
+			scanf("%d", &opcao); //Armazenando a escolha do usuário
+	
+			system("cls"); // responsável por limpar a tela 
+		
+			switch(opcao) //início da seleção
+			{
+				case 1:
+				printf("Você escolheu registro de nomes!\n\n");
+				registro(); // Chamada da função reponsável por registrar
+				break;
+				
+				case 2:
+				printf("Você escolheu consultar nomes!\n\n");
+				consulta(); // Chamada da função responsável por consultar
+				break;
+				
+				case 3:
+				printf("Você escolheu deletar nomes!\n\n");
+				deletar(); // Chamada da função responsável por deletar 
+				break;
+			
+				case 4:
+				printf("Obrigado por utilizar o sistema!\n"); // Exibe a informação ao usuário
+				return 0;
+				break;
+					
+				default: 
+				printf("Essa opção não existe\n"); // Exibe a informação ao usuário 
+				system("pause");
+				break;
+		
+			}//Fim da seleção
+			
+		} // Fim do operador de repetição
+		
+	}  //Fim do operador de repetição
+	
+	else
+		printf("Senha incorreta!");
+	
+} //Definição de Variável
+
